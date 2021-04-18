@@ -1,2 +1,3 @@
 # nzoi-2020
- A compilation of programs to solve NZOI's problems, written in Rust.
+## Round 1
+ A compilation of programs to solve NZOI's Round 1 problems, written in Rust.
