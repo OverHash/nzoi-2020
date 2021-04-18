@@ -4,24 +4,25 @@ fn main() {
 	let mut input_distances = String::new();
 	io::stdin().read_line(&mut input_distances).unwrap();
 
-	let distances = input_distances.trim_end().split(' ').flat_map(str::parse::<u32>).collect::<Vec<_>>();
+	let input_distances = input_distances.trim_end();
+
+	let distances = input_distances.split(' ').map(str::parse::<u32>).collect::<Result<Vec<_>, _>>().unwrap();
 	
 	let mut distance_from_start = String::new();
 	io::stdin().read_line(&mut distance_from_start).unwrap();
 
 	let distance_from_start = distance_from_start.trim_end().parse::<u32>().unwrap();
 
-	let mut all_distances: Vec<u32> = Vec::new();
+	let mut all_distances = distances.iter().fold(Vec::new(), |mut tmp, &distance| {
+        let from_start = distance - (distance_from_start % distance);
+        let to_end = distance_from_start % distance;
 
-	for distance in distances {
-		let from_start = distance - (distance_from_start % distance);
-		let to_end = distance_from_start % distance;
-
-		all_distances.push(from_start);
-		if from_start != to_end {
-			all_distances.push(to_end);
-		}
-	}
+        tmp.push(from_start);
+        if from_start != to_end {
+            tmp.push(to_end);
+        }
+        tmp
+    });
 
 	all_distances.sort_unstable();
 
