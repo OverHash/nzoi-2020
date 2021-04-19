@@ -1,19 +1,23 @@
 use std::io;
 
 fn main() {
-	let mut input_distances = String::new();
-	io::stdin().read_line(&mut input_distances).unwrap();
+    let mut input_distances = String::new();
+    io::stdin().read_line(&mut input_distances).unwrap();
 
-	let input_distances = input_distances.trim_end();
+    let input_distances = input_distances.trim_end();
 
-	let distances = input_distances.split(' ').map(str::parse::<u32>).collect::<Result<Vec<_>, _>>().unwrap();
-	
-	let mut distance_from_start = String::new();
-	io::stdin().read_line(&mut distance_from_start).unwrap();
+    let distances = input_distances
+        .split(' ')
+        .map(str::parse::<u32>)
+        .collect::<Result<Vec<_>, _>>()
+        .unwrap();
 
-	let distance_from_start = distance_from_start.trim_end().parse::<u32>().unwrap();
+    let mut distance_from_start = String::new();
+    io::stdin().read_line(&mut distance_from_start).unwrap();
 
-	let mut all_distances = distances.iter().fold(Vec::new(), |mut tmp, &distance| {
+    let distance_from_start = distance_from_start.trim_end().parse::<u32>().unwrap();
+
+    let mut all_distances = distances.iter().fold(Vec::new(), |mut tmp, &distance| {
         let from_start = distance - (distance_from_start % distance);
         let to_end = distance_from_start % distance;
 
@@ -24,11 +28,11 @@ fn main() {
         tmp
     });
 
-	all_distances.sort_unstable();
+    all_distances.sort_unstable();
 
-	println!("{}", all_distances[0]);
+    println!("{}", all_distances[0]);
 
-	if all_distances[0] == all_distances[1] {
-		println!("can't make up my mind");
-	}
+    if all_distances[0] == all_distances[1] {
+        println!("can't make up my mind");
+    }
 }
