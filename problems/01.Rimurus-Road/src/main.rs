@@ -4,9 +4,8 @@ fn main() {
     let mut input_distances = String::new();
     io::stdin().read_line(&mut input_distances).unwrap();
 
-    let input_distances = input_distances.trim_end();
-
     let distances = input_distances
+		.trim_end()
         .split(' ')
         .map(str::parse::<u32>)
         .collect::<Result<Vec<_>, _>>()
@@ -19,7 +18,7 @@ fn main() {
 
     let mut all_distances = distances.iter().fold(Vec::new(), |mut tmp, &distance| {
         let from_start = distance - (distance_from_start % distance);
-        let to_end = distance_from_start % distance;
+        let to_end = from_start + distance;
 
         tmp.push(from_start);
         if from_start != to_end {
