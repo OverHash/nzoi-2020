@@ -31,7 +31,7 @@ fn main() {
             all_years
         });
 
-    if calculate_year_mean(all_readings) >= 12 {
+    if usize::from(all_readings.iter().sum::<u16>()) >= 12 * all_readings.len() {
         // check for resow
         let recent_year_readings = &year_readings[2];
 
@@ -40,7 +40,7 @@ fn main() {
             .filter(|reading| *reading >= &25)
             .collect();
 
-        if saturated_recent_year_readings.len() >= recent_year_readings.len() / 2 {
+        if saturated_recent_year_readings.len() * 2 >= recent_year_readings.len() {
             println!("resow");
         } else {
             println!("unhealthy");
@@ -48,13 +48,4 @@ fn main() {
     } else {
         println!("healthy");
     }
-}
-
-fn calculate_year_mean(readings: Vec<u16>) -> u16 {
-    let sum: u32 = readings.iter().fold(0_u32, |mut acc, reading| {
-        acc += *reading as u32;
-        acc
-    });
-
-    (sum / readings.len() as u32) as u16
 }
