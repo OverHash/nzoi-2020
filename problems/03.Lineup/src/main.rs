@@ -25,13 +25,13 @@ fn main() {
     their_lineup.sort_unstable();
 
     // calculate wins
-    let mut matches_won: u32 = 0;
-
-    for our_player in &our_lineup {
-        if our_player > &their_lineup[matches_won as usize] {
-            matches_won += 1;
+    let matches_won: u32 = our_lineup.iter().fold(0, |wins, &our_player| {
+        if our_player > their_lineup[wins as usize] {
+            return wins + 1;
         }
-    }
+
+        wins
+    });
 
     println!("{}", matches_won);
 }
