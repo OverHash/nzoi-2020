@@ -24,8 +24,7 @@ fn main() {
         .collect();
     their_lineup.sort_unstable();
 
-    // find our optimal layout
-
+    // calculate wins
     let mut matches_won: u32 = 0;
 
     for our_player in &our_lineup {
